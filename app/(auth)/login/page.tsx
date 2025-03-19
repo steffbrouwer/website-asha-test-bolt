@@ -18,16 +18,19 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (error) throw error;
+      if (signInError) {
+        throw signInError;
+      }
 
       router.push("/");
-    } catch (error) {
-      setError("Inloggen mislukt. Controleer je gegevens en probeer het opnieuw.");
+    } catch (error: any) {
+      console.error('Login error:', error);
+      setError("Onjuiste e-mailadres of wachtwoord.");
     } finally {
       setLoading(false);
     }
@@ -67,11 +70,15 @@ export default function Login() {
             />
           </div>
 
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {error && (
+            <div className="bg-red-50 border border-red-200 p-4 rounded-md">
+              <p className="text-red-700 text-sm">{error}</p>
+            </div>
+          )}
 
           <button
             type="submit"
-            className="bg-primary text-white py-2 px-4 rounded-md w-full hover:bg-primary-dark-text transition-colors"
+            className="bg-primary text-white py-2 px-4 rounded-md w-full hover:bg-primary-dark-text transition-colors disabled:opacity-50"
             disabled={loading}
           >
             {loading ? "Bezig met inloggen..." : "Inloggen"}

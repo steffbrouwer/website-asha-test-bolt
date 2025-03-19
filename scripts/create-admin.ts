@@ -11,10 +11,24 @@ const supabase = createClient(
 
 async function createAdminUser() {
   try {
-    // Sign up the admin user
+    // Delete existing user if it exists
+    const { data: existingUser } = await supabase.auth.admin.listUsers();
+    const adminUser = existingUser?.users.find(u => u.email === 'admin@asha.nl');
+    
+    if (adminUser) {
+      await supabase.auth.admin.deleteUser(adminUser.id);
+    }
+
+    // Sign up the admin user with email confirmation disabled
     const { data, error } = await supabase.auth.signUp({
       email: 'admin@asha.nl',
       password: 'asha123',
+      options: {
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
+        data: {
+          email_confirmed: true
+        }
+      }
     });
 
     if (error) {
