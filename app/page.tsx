@@ -29,7 +29,7 @@ export default function Home() {
       {/* Introduction */}
       <section className="container mx-auto px-4 mb-10">
         <p className="text-muted-foreground">
-          Stichting Asha (Asha = Hoop in het Hindi) is een vrijwilligersorganisatie van Surinaamse Hindostanen in de gemeente Utrecht. De organisatie is in 1976 opgericht en wil met haar activiteiten een positieve bijdrage leveren aan het gemeentelijke integratie- en participatiebeleid.
+          test testStichting Asha (Asha = Hoop in het Hindi) is een vrijwilligersorganisatie van Surinaamse Hindostanen in de gemeente Utrecht. De organisatie is in 1976 opgericht en wil met haar activiteiten een positieve bijdrage leveren aan het gemeentelijke integratie- en participatiebeleid.
         </p>
       </section>
 
