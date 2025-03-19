@@ -1,15 +1,25 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Poppins, Roboto } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
-import { Navbar } from '@/components/navbar';
-import { Toaster } from '@/components/ui/toaster';
+import { Navbar } from '@/components/layout/navbar';
+import { Footer } from '@/components/layout/footer';
 
-const inter = Inter({ subsets: ['latin'] });
+const poppins = Poppins({ 
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600'],
+  variable: '--font-poppins'
+});
+
+const roboto = Roboto({ 
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  variable: '--font-roboto'
+});
 
 export const metadata: Metadata = {
   title: 'Stichting Asha',
-  description: 'Stichting Asha - Vrijwilligersorganisatie van Surinaamse Hindostanen in Utrecht',
+  description: 'Stichting Asha - Hoop in het Hindi',
 };
 
 export default function RootLayout({
@@ -19,21 +29,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="nl" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${poppins.variable} ${roboto.variable} font-sans min-h-screen flex flex-col`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
-          enableSystem
+          enableSystem={false}
           disableTransitionOnChange
         >
           <Navbar />
-          {children}
-          <Toaster />
-          <footer className="bg-background py-6 border-t">
-            <div className="container mx-auto text-center">
-              <p className="text-muted-foreground">&copy; 2025 Stichting Asha</p>
-            </div>
-          </footer>
+          <main className="flex-grow">
+            {children}
+          </main>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
